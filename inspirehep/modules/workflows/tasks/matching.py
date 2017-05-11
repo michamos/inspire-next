@@ -204,20 +204,20 @@ def is_too_old(record, days_ago=5):
 
 @with_debug_logging
 def article_exists(obj, eng):
-    """Check if an article exist in the system."""
-    # For efficiency check special mark key.
-    if obj.extra_data.get('match-found', False):
-        return True
-    # Use matcher if not on production
-    if not current_app.config.get('PRODUCTION_MODE'):
-        if match_with_invenio_matcher(index="records-hep", doc_type="hep")(obj, eng):
-            obj.log.info("Record already exists in INSPIRE (using matcher).")
-            return True
-    else:
-        obj.log.warning("Remote match is deprecated.")
-        if match_legacy_inspire(obj, eng):
-            obj.log.info("Record already exists in INSPIRE.")
-            return True
+    # """Check if an article exist in the system."""
+    # # For efficiency check special mark key.
+    # if obj.extra_data.get('match-found', False):
+    #     return True
+    # # Use matcher if not on production
+    # if not current_app.config.get('PRODUCTION_MODE'):
+    #     if match_with_invenio_matcher(index="records-hep", doc_type="hep")(obj, eng):
+    #         obj.log.info("Record already exists in INSPIRE (using matcher).")
+    #         return True
+    # else:
+    #     obj.log.warning("Remote match is deprecated.")
+    #     if match_legacy_inspire(obj, eng):
+    #         obj.log.info("Record already exists in INSPIRE.")
+    #         return True
     return False
 
 
@@ -238,6 +238,7 @@ def is_being_harvested_on_legacy(record):
 @with_debug_logging
 def already_harvested(obj, eng):
     """Check if record is already harvested."""
+    return False
     if is_being_harvested_on_legacy(obj.data):
         obj.log.info((
             'Record with arXiv id {arxiv_id} is'
@@ -253,6 +254,7 @@ def previously_rejected(days_ago=None):
     @with_debug_logging
     @wraps(previously_rejected)
     def _previously_rejected(obj, eng):
+        return False
         if days_ago is None:
             _days_ago = current_app.config.get('INSPIRE_ACCEPTANCE_TIMEOUT', 5)
         else:

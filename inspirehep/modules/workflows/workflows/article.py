@@ -372,13 +372,14 @@ class Article(object):
                 is_record_accepted,
                 (
                     POSTENHANCE_RECORD +
-                    SEND_TO_LEGACY_AND_WAIT +
-                    NOTIFY_ACCEPTED +
+                    # SEND_TO_LEGACY_AND_WAIT +
+                    # NOTIFY_ACCEPTED +
                     [
                         # TODO: once legacy is out, this should become
                         # unconditional, and remove the SEND_TO_LEGACY_AND_WAIT
                         # steps
-                        IF_NOT(in_production_mode, [store_record]),
+                        # IF_NOT(in_production_mode, [store_record]),
+                        store_record,
                     ]
                 ),
                 NOTIFY_NOT_ACCEPTED,
