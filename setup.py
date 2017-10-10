@@ -60,7 +60,6 @@ install_requires = [
     'inspire-crawler~=0.0,>=0.4.2',
     'inspire-dojson~=50.0,>=50.0.0',
     'inspire-query-parser~=0.0,>=0.2.7',
-    'inspire-schemas~=50.0,>=50.0.1',
     'inspire-utils~=0.0,>=0.0.8',
     'invenio-access>=1.0.0b1',
     'invenio-accounts>=1.0.0b10',
